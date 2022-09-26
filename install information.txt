@@ -1,0 +1,26 @@
+1. Create laravel app
+2. install vue 3
+	- npm i vue@next vue-loader@next vue-router@next
+
+
+
+3. Create logign & register api
+4. How to add bootstrap by npm install
+      - npm i bootstrap@5.2.1  or npm install bootstrap
+      - npm i @popperjs/core
+
+** add boostrap css & js in app.js file like below.*********
+
+	import "bootstrap/dist/css/bootstrap.min.css"
+
+	import { createApp } from 'vue';
+	import router from './router';
+
+	import App from './layouts/App.vue';
+
+	createApp(App)
+	.use(router)
+	.mount('#app')
+
+	import "bootstrap/dist/js/bootstrap.js"
+	
