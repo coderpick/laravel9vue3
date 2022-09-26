@@ -2,14 +2,17 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Http\HttpResponses;
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
-use Validator;
+use Illuminate\Support\Facades\Validator;
+
 
 class AuthController extends Controller
 {
+    use HttpResponses;
 
     public function register(Request $request)
     {
@@ -42,6 +45,7 @@ class AuthController extends Controller
             'success' => true,
             'message' => "User register successfully",
             'data' => $data,
+            'user' => $user
         ];
 
         return response()->json($response, 200);
@@ -74,6 +78,7 @@ class AuthController extends Controller
                 'success' => true,
                 'message' => "User login successfully",
                 'data' => $data,
+                'user' => $user
             ];
 
             return response()->json($response, 200);
@@ -81,12 +86,22 @@ class AuthController extends Controller
 
 
             $response = [
-                'success' => fake(),
-                'message' => "Unauthorized",
+                'success' => false,
+                'message' => "Credentials does not match",
 
             ];
 
             return response()->json($response, 401);
         }
+    }
+
+    public function logout()
+    {
+        Auth::user()->currentAccessToken()->delete();
+        return response()->json([
+            'success' => true,
+            'message' => "User logout successfully",
+        ]);
+
     }
 }
